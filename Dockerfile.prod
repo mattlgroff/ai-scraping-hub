@@ -30,7 +30,8 @@ WORKDIR /app
 # Separate step to leverage Docker caching
 COPY Gemfile Gemfile.lock ./
 RUN bundle config build.nokogiri --use-system-libraries
-RUN bundle check || bundle install --jobs 20 --retry 5 --without development test
+RUN bundle config set --local without 'development test'
+RUN bundle check || bundle install
 
 # Copy the Rails application into place
 COPY . ./

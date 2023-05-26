@@ -11,9 +11,16 @@ Make a `.env` file in the root of the project.
   
 ```bash
 DATABASE_URL=postgres://postgres:mysecretpassword@localhost:5432/ai-scraping-hub
+SECRET_KEY_BASE=0111a7892a0296e3b23e3be54c0fb17a5b95e55cefce832d3d525f4d54fa7710cda64df1cc986a5953769bf0ef7f93992f62b0cf4032f1196ca9e60c5432c1f7
 ```
 
-See the `.example.env` for the required variables to get running.
+See the `.example.env` for the required variables to get running. Note the above are just examples and you will need to provide them yourself.
+
+You can generate a `SECRET_KEY_BASE` by running:
+
+```bash
+  rails secret
+```
 
 Install dependencies.
 
