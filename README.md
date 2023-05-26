@@ -22,6 +22,12 @@ You can generate a `SECRET_KEY_BASE` by running:
   rails secret
 ```
 
+You can generate a `RAILS_MASTER_KEY` by running:
+
+```bash
+  rails credentials:edit
+```
+
 Install dependencies.
 
 ```bash
