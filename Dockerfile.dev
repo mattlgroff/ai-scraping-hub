@@ -1,0 +1,47 @@
+# Set the base image. Since we're using Ruby, we'll use the official Ruby image from Docker.
+FROM --platform=linux/amd64 ruby:3.2.2-alpine
+
+# Set environment variables for the Bundler version
+ENV BUNDLER_VERSION=2.4.13
+
+# Install necessary system dependencies. We're using apk because our base image is alpine Linux.
+# build-base: meta-package that installs GCC, Make etc.
+# imagemagick: for image processing capabilities
+# libxml2-dev and libxslt-dev: for Nokogiri gem
+# nodejs: JavaScript runtime, required for Rails assets pipeline
+# postgresql-client: PostgreSQL database client
+# postgresql-dev: PostgreSQL development files, required to build pg gem
+# tzdata: time zone database, required by Rails
+# yarn: JavaScript package manager, required for Rails assets pipeline
+RUN apk add --update --no-cache \
+      build-base \
+      imagemagick \
+      libxml2-dev \
+      libxslt-dev \
+      nodejs \
+      postgresql-client \
+      postgresql-dev \
+      tzdata \
+      yarn
+
+# Install Bundler version specified by the BUNDLER_VERSION environment variable
+RUN gem install bundler -v $BUNDLER_VERSION
+
+# Set the working directory in the Docker container to /app. All subsequent commands will be run from this directory.
+WORKDIR /app
+
+# Copy over the Gemfile and Gemfile.lock from your app directory into the Docker container
+COPY Gemfile Gemfile.lock ./
+
+# Configure bundler and path, then install gems.
+# Uses system libraries to build Nokogiri for speed and smaller size.
+RUN bundle config build.nokogiri --use-system-libraries
+
+# Check if the necessary gems are present and install them if they are not. This will use the Gemfile and Gemfile.lock.
+RUN bundle check || bundle install 
+
+# Copy the rest of the app code into the Docker container. We're doing this last to utilize Docker's caching behavior and speed up build times.
+COPY . ./ 
+
+# Set the entrypoint script. This script will be run every time a new container is started from the image.
+ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]

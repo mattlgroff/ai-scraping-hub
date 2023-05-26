@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  rails: 
+    container_name: ai-scraping-hub-rails
+    build:
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - postgres
+      - redis
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    env_file: ./.env
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://postgres:mysecretpassword@postgres:5432/ai-scraping-hub
+      REDIS_URL: redis://redis:6379
+
+  postgres:
+    container_name: ai-scraping-hub-postgres
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: ai-scraping-hub
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    container_name: ai-scraping-hub-redis
+    image: redis
+    ports:
+      - 6379:6379
+
+volumes:
+  pg_data:
