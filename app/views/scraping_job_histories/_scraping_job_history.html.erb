@@ -1,0 +1,32 @@
+<div id="<%= dom_id scraping_job_history %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Started at:</strong>
+    <%= scraping_job_history.started_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Ended at:</strong>
+    <%= scraping_job_history.ended_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Successful:</strong>
+    <%= scraping_job_history.successful %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Content:</strong>
+    <%= scraping_job_history.content %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Scraping job:</strong>
+    <%= scraping_job_history.scraping_job_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this scraping job history", scraping_job_history, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this scraping job history', edit_scraping_job_history_path(scraping_job_history), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_26_054021) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_055926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "scraping_job_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.boolean "successful"
+    t.text "content"
+    t.uuid "scraping_job_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scraping_job_id"], name: "index_scraping_job_histories_on_scraping_job_id"
+  end
 
   create_table "scraping_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
@@ -38,5 +49,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_054021) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "scraping_job_histories", "scraping_jobs"
   add_foreign_key "scraping_jobs", "users"
 end

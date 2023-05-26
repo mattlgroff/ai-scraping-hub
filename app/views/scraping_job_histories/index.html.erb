@@ -15,11 +15,11 @@
   </div>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Scraping jobs</h1>
-    <%= link_to 'New scraping job', new_scraping_job_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="font-bold text-4xl">Scraping job histories</h1>
+    <%= link_to 'New scraping job history', new_scraping_job_history_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="scraping_jobs" class="min-w-full">
-    <%= render @scraping_jobs %>
+  <div id="scraping_job_histories" class="min-w-full">
+    <%= render @scraping_job_histories %>
   </div>
 </div>

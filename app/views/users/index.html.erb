@@ -3,6 +3,17 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
+  <!-- Temporary -->
+  <div class="mt-6 flow-root">
+    <div class="-my-6 divide-y divide-gray-500/10">
+      <div class="space-y-2 py-6">
+        <a href="/users" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Users</a>
+        <a href="/scraping_jobs" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Scraping Jobs</a>
+        <a href="/scraping_job_histories" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Scraping Jobs History</a>
+      </div>
+    </div>
+  </div>
+
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Users</h1>
     <%= link_to 'New user', new_user_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
