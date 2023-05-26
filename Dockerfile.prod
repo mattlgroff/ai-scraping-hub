@@ -37,7 +37,7 @@ RUN bundle check || bundle install
 COPY . ./
 
 # Precompile Rails assets
-RUN bundle exec rake assets:precompile
+RUN RAILS_ENV=production SECRET_KEY_BASE=128-char-long-key bundle exec rake assets:precompile
 
 # Stage 2
 # Use a minimal Alpine image with no additional packages as a base
