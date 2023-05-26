@@ -1,0 +1,32 @@
+<div id="<%= dom_id scraping_job %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= scraping_job.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Href:</strong>
+    <%= scraping_job.href %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Selector:</strong>
+    <%= scraping_job.selector %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= scraping_job.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Cron schedule:</strong>
+    <%= scraping_job.cron_schedule %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this scraping job", scraping_job, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this scraping job', edit_scraping_job_path(scraping_job), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
