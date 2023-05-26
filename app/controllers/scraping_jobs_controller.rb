@@ -57,6 +57,28 @@ class ScrapingJobsController < ApplicationController
     end
   end
 
+  # Check redis for the latest content, if not found, check the latest scraping job history from postgresql instead.
+  def latest_content
+    begin
+      redis_content = $redis.get("scraping_job:#{params[:id]}:content")
+  
+      if redis_content
+        render json: { content: JSON.parse(redis_content) }, status: :ok
+      else
+        scraping_job_history = @scraping_job.scraping_job_histories.order(ended_at: :desc).first
+  
+        if scraping_job_history
+          render json: { content: JSON.parse(scraping_job_history.content) }, status: :ok
+        else
+          render json: { error: 'No content found' }, status: :not_found
+        end
+      end
+    rescue JSON::ParserError => e
+      render json: { error: "Failed to parse JSON: #{e.message}" }, status: :internal_server_error
+    end
+  end
+  
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_scraping_job

@@ -1,6 +1,0 @@
-:scheduler:
-  :dynamic: true
-  :dynamic_every: 5s
-  :enabled: true
-  :listened_queues_only: false
-  :rufus_scheduler_options: {}

@@ -4,18 +4,20 @@ class ScrapingJob < ApplicationRecord
   after_destroy :remove_schedule
 
   def update_schedule
-    SidekiqScheduler.set_schedule(
-      "ScraperWorker_#{id}", 
-      { 
-        'class' => 'ScraperWorker', 
-        'args' => [id],
-        'cron' => cron_schedule,
-        'enabled' => true
-      }
-    )
+    # TODO : Replace with API call to the Node Service
+    # Sidekiq::Scheduler.set_schedule(
+    #   "ScraperWorker_#{id}", 
+    #   { 
+    #     'class' => 'ScraperWorker', 
+    #     'args' => [id],
+    #     'cron' => cron_schedule,
+    #     'enabled' => true
+    #   }
+    # )
   end
 
   def remove_schedule
-    SidekiqScheduler.remove_schedule("ScraperWorker_#{id}")
+    # TODO : Replace with API call to the Node Service
+    # Sidekiq::Scheduler.remove_schedule("ScraperWorker_#{id}")
   end
 end
