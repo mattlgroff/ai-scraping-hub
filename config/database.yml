@@ -83,4 +83,5 @@ production:
   <<: *default
   prepared_statements: false
   advisory_locks: false
+  sslmode: require
   url: <%= ENV["DATABASE_URL"] %>
