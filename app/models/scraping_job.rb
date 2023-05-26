@@ -4,7 +4,7 @@ class ScrapingJob < ApplicationRecord
   after_destroy :remove_schedule
 
   def update_schedule
-    Sidekiq::Scheduler.set_schedule(
+    SidekiqScheduler.set_schedule(
       "ScraperWorker_#{id}", 
       { 
         'class' => 'ScraperWorker', 
@@ -16,6 +16,6 @@ class ScrapingJob < ApplicationRecord
   end
 
   def remove_schedule
-    Sidekiq::Scheduler.remove_schedule("ScraperWorker_#{id}")
+    SidekiqScheduler.remove_schedule("ScraperWorker_#{id}")
   end
 end
